@@ -1,0 +1,42 @@
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+        <form action="/cart" method="post">
+            <h5 class="card-title">{{prdct.title}}</h5>
+            <p class="card-text">Rs {{prdct.price}}</p>
+            <input type="number" id="quantity" name="quantity"
+                onchange="quantityChange(document.getElementById('quantity'))" placeholder="{{prdct.quantity}}"
+                name="quantity" min="{{prdct.quantity}}" max="{{prdct.maxQuantity}}">
+            <input type="text" id="_id" name="id" value="{{prdct._id}}" class="text" hidden>
+            <input type="text" id="total_price" name="totalPrice" value="{{totalPrice}}" class="text" hidden>
+            <p class="card-text" id="total-price">Total Price :Rs {{totalPrice}}</p>
+
+            <button type="submit" class="btn btn-primary">Add to cart</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function quantityChange(q) {
+        console.log(q.value)
+        let id = document.getElementById('_id').value
+        console.log(id)
+        let amount = q.value
+        $.ajax({
+            type: "post",
+            url: "/add-quantity",
+            data: {
+                quantity: amount,
+                id
+            },
+            success: function (response) {
+                let totalAmount = response.totalAmount
+                console.log('total amount' + totalAmount)
+                document.getElementById('total-price').textContent = 'Total Price :Rs ' + totalAmount
+                document.getElementById('total_price').value = totalAmount
+
+            }
+        }
+        )
+    }
+</script>

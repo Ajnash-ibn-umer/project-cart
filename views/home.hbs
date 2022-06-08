@@ -1,0 +1,19 @@
+<section class="products">
+
+    {{#each products}}
+    <a href="/product?id={{this._id}}">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src={{this._id}}+".jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{this.title}}</h5>
+                <p class="card-text">{{this.price}}</p>
+
+            </div>
+
+
+        </div>
+
+    </a>
+    {{/each}}
+
+</section>

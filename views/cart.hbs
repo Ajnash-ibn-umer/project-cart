@@ -1,0 +1,54 @@
+<section class="products">
+
+
+    <div class="card" style="width: 18rem;">
+
+        <div class="card-body">
+
+            <p class="card-text" id="amount">Total amount :{{amount}}</p>
+
+            <input type="text" name="promocode" id="promocode">
+            <button class="btn btn-primary" onclick="add_promocode()">Add promocode</button>
+            <p class="card-text" id="msg"></p>
+    <a class="btn btn-danger" href="/buyNow" >Buy now</a>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+<script>
+    function add_promocode() {
+        let code = document.getElementById('promocode').value
+        let amount = {{ amount }}
+    
+    console.log('code :' + code)
+    $.ajax({
+        type: "post",
+        url: "/add-promocode",
+        data: {
+            code,
+            amount
+
+        },
+        success: function (res) {
+
+            let totalAmount = res.amount
+            let msg = res.msg
+
+            document.getElementById('amount').textContent = 'Total amount :' + totalAmount
+            document.getElementById('msg').textContent = msg + '  -' + '123 =' + Number(totalAmount - 123)
+
+
+
+        }
+
+    })
+}
+
+
+
+</script>
